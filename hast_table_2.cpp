@@ -149,7 +149,7 @@ public:
 };
 
 int main() {
-    /*
+    
     HashTable table(30);
     
     IntObject a = 5;
@@ -171,7 +171,6 @@ int main() {
     cout << table["Huseyin"] << endl;
     cout << table["Emirhan"] << endl;
     cout << table["Test<"] << endl;
-    */
     
     vector<ObjectElement> a;
     Int b = 5;
