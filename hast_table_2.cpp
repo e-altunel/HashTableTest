@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 
 using namespace std;
 
@@ -9,7 +8,7 @@ public:
     virtual void print(ostream & o) = 0;
     virtual Object * returncopy() = 0;
 };
-
+/*
 class Int : public Object {
     int value;
 public:
@@ -64,6 +63,26 @@ public:
     }
     Object * returncopy() {
         return new String(value);
+    }
+};
+*/
+
+template <typename T>
+class SubObject : public Object {
+    T value;
+public:
+    void print(ostream &o) {
+        o << value;
+    }
+    const SubObject &operator=(T a) {
+        value = a;
+        return *this;
+    }
+    SubObject(T a) {
+        value = a;
+    }
+    Object *returncopy() {
+        return new SubObject<T>(value);
     }
 };
 
@@ -152,39 +171,25 @@ int main() {
     
     HashTable table(30);
     
-    IntObject a = 5;
-    IntObject d = 10;
+    SubObject<int> a = 5;
+    SubObject<int> d = 10;
     
     table["Test"] = a;
     table.addElement("Test<", d);
     
-    DoubleObject b = 5.1;
+    SubObject<double> b = 5.1;
     
     table["Huseyin"] = b;
     
-    StringObject c = "Deneme";
+    SubObject<const char *> c = "Deneme";
     
     table["Emirhan"] = c;
-    table["Emirhan"] = d;
+    table["Test<"] = d;
 
     cout << table["Test"] << endl;
     cout << table["Huseyin"] << endl;
     cout << table["Emirhan"] << endl;
     cout << table["Test<"] << endl;
-    
-    vector<ObjectElement> a;
-    Int b = 5;
-    a.push_back(b);
-    
-    Double c = 5.1;
-    a.push_back(c);
-    
-    String d = "Merhaba";
-    a.push_back(d);
-    
-    for (auto &x : a) {
-        cout << x << endl;
-    }
     
     return 0;
 }
